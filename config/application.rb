@@ -29,6 +29,8 @@ module Weather
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
+    config.active_job.queue_adapter = :delayed_job
+
     config.autoload_paths << Rails.root.join("app/api")
     config.autoload_paths << Rails.root.join("app/services")
 
