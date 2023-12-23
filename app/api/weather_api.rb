@@ -19,9 +19,14 @@ class WeatherAPI < Grape::API
         { status: "historical avg" }
       end
 
-      desc "Find temperature by nearest timestamp"
-      post :by_time do
-        { status: "historical by_time" }
+      resource :by_time do
+        desc "Find temperature by nearest timestamp"
+        params do
+          requires :timestamp, type: Integer
+        end
+        post do
+          { status: "historical by_time" }
+        end
       end
 
       desc "Get max temperature for the last 24 hours"

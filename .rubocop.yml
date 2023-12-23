@@ -2,7 +2,9 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
-
+Layout/LineLength:
+  Exclude:
+    - "db/**/*"
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/StringLiterals:

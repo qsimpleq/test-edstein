@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_23_151049) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_23_154432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,24 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_151049) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_key"], name: "index_cities_on_location_key", unique: true
+  end
+
+  create_table "city_weathers", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.datetime "timestamp", precision: nil
+    t.float "temperature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_city_weathers_on_city_id"
+  end
+
+  create_table "create_weather_data", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.datetime "timestamp", precision: nil, null: false
+    t.float "temperature", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_create_weather_data_on_city_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -37,4 +55,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_151049) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  add_foreign_key "city_weathers", "cities"
+  add_foreign_key "create_weather_data", "cities"
 end
