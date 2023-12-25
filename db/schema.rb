@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_23_154432) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_24_124100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,34 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_154432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location"], name: "index_cities_on_location", unique: true
+  end
+
+  create_table "city_current_weathers", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.datetime "timestamp", precision: nil
+    t.float "temperature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_city_current_weathers_on_city_id"
+  end
+
+  create_table "city_weather_currents", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.datetime "timestamp", precision: nil, null: false
+    t.float "temperature", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_city_weather_currents_on_city_id"
+  end
+
+  create_table "city_weather_stats", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.float "avg_temperature", null: false
+    t.float "max_temperature", null: false
+    t.float "min_temperature", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_city_weather_stats_on_city_id"
   end
 
   create_table "city_weathers", force: :cascade do |t|
@@ -55,6 +83,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_154432) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  add_foreign_key "city_current_weathers", "cities"
+  add_foreign_key "city_weather_currents", "cities"
+  add_foreign_key "city_weather_stats", "cities"
   add_foreign_key "city_weathers", "cities"
   add_foreign_key "create_weather_data", "cities"
 end
