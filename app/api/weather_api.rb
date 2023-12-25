@@ -29,8 +29,25 @@ class WeatherAPI < Grape::API
         params do
           requires :timestamp, type: Integer
         end
-        post do
-          { status: "historical by_time" }
+
+        get do
+          dt = Time.at(params[:timestamp]).utc.to_datetime
+          lesser = city.city_weathers.where(timestamp: (dt - 1.hour)..dt).order(timestamp: :desc).limit(1)&.first
+          greater = city.city_weathers.where(timestamp: dt..(dt + 1.hour)).order(timestamp: :asc).limit(1)&.first
+
+          error! "Can't find such temperature", 404 if lesser.nil? && greater.nil?
+
+          weather = if lesser.nil?
+                      greater
+                    elsif greater.nil?
+                      lesser
+                    elsif (lesser.timestamp - dt).abs < (greater.timestamp - dt).abs
+                      lesser
+                    else
+                      greater
+                    end
+
+          { temperature: weather.temperature }
         end
       end
 
