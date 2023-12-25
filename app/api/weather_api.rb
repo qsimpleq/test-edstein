@@ -21,7 +21,7 @@ class WeatherAPI < Grape::API
 
       desc "Get avg temperature for the last 24 hours"
       get :avg do
-        { avg_temperature: city.city_weather_stat.avg_temperature }
+        { temperature: city.city_weather_stat.avg_temperature }
       end
 
       resource :by_time do
@@ -53,12 +53,12 @@ class WeatherAPI < Grape::API
 
       desc "Get max temperature for the last 24 hours"
       get :max do
-        { max_temperature: city.city_weather_stat.max_temperature }
+        { temperature: city.city_weather_stat.max_temperature }
       end
 
       desc "Get min temperature for the last 24 hours"
       get :min do
-        { min_temperature: city.city_weather_stat.min_temperature }
+        { temperature: city.city_weather_stat.min_temperature }
       end
     end
   end
