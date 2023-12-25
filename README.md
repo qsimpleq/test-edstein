@@ -24,3 +24,20 @@ API открыт для всех, авторизация не нужна.\
 Приветствуется использование кеширования и `Trailblazer`, swagger документации, Docker
 
 🪐Срок выполнения: 3 дня (срок может быть увеличен при необходимости, можно выполнять в будние дни).
+
+## Настройка
+
+Для каждого из окружений создаём свой .env.${RAILS_ENV} файл, с нужными параметрами
+```.dotenv
+DATABASE_URL='postgres://postgres:example@localhost:5432/weather_development'
+REDIS_URL='redis://localhost:6379/weather_development'
+APIKEY_ACCUWEATHER=''
+```
+
+```shell
+bundle
+rails db:create db:schema:load
+rails db:seed
+rails s
+RAILS_ENV=development bin/delayed_job start
+```
