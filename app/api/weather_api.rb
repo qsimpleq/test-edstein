@@ -1,22 +1,27 @@
-# app/api/weather_api.rb
 class WeatherAPI < Grape::API
   format :json
+
+  helpers do
+    def city
+      @city ||= City.first
+    end
+  end
 
   resource :weather do
     desc "Get current temperature"
     get :current do
-      { status: "current" }
+      city.city_current_weather
     end
 
     resource :historical do
       desc "Get hourly temperature for the last 24 hours"
       get "/" do
-        { status: "historical" }
+        city.city_weathers.order(timestamp: :desc).limit(24)
       end
 
       desc "Get avg temperature for the last 24 hours"
       get :avg do
-        { status: "historical avg" }
+        { avg_temperature: city.city_weather_stat.avg_temperature }
       end
 
       resource :by_time do
@@ -31,12 +36,12 @@ class WeatherAPI < Grape::API
 
       desc "Get max temperature for the last 24 hours"
       get :max do
-        { status: "historical max" }
+        { max_temperature: city.city_weather_stat.max_temperature }
       end
 
       desc "Get min temperature for the last 24 hours"
       get :min do
-        { status: "historical min" }
+        { min_temperature: city.city_weather_stat.min_temperature }
       end
     end
   end
