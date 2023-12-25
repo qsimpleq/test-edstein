@@ -29,13 +29,12 @@ module Weather
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
+    config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"] }
+
     config.active_job.queue_adapter = :delayed_job
 
     config.autoload_paths << Rails.root.join("app/api")
     config.autoload_paths << Rails.root.join("app/services")
-
-    # config.paths.add File.join("app", "api"), glob: File.join("**", "*.rb")
-    # config.autoload_paths += Dir[Rails.root.join("app/api/*"), Rails.root.join("app/service")]
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -54,5 +53,21 @@ module Weather
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.after_initialize do
+      scheduler = Rufus::Scheduler.new
+      city = City.first
+
+      AccuweatherAPIJob.perform_later(:hourly_temperature, city) unless CityWeather.any?
+      AccuweatherAPIJob.perform_later(:current_temperature, city) unless CityCurrentWeather.any?
+
+      scheduler.every "10m" do
+        AccuweatherAPIJob.perform_later(:hourly_temperature, city)
+      end
+
+      scheduler.every "1h" do
+        AccuweatherAPIJob.perform_later(:current_temperature, city)
+      end
+    end
   end
 end

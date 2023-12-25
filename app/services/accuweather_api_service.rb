@@ -1,6 +1,3 @@
-require "faraday"
-require "json"
-
 class AccuweatherAPIService
   API_KEY = ENV["APIKEY_ACCUWEATHER"].freeze
   API_URL = "https://dataservice.accuweather.com/currentconditions/v1".freeze
