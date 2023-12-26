@@ -55,19 +55,23 @@ module Weather
     config.api_only = true
 
     config.after_initialize do
-      scheduler = Rufus::Scheduler.new
-      city = City.first
-
-      AccuweatherAPIJob.perform_later(:hourly_temperature, city) unless CityWeather.any?
-      AccuweatherAPIJob.perform_later(:current_temperature, city) unless CityCurrentWeather.any?
-
-      scheduler.every "10m" do
-        AccuweatherAPIJob.perform_later(:hourly_temperature, city)
-      end
-
-      scheduler.every "1h" do
-        AccuweatherAPIJob.perform_later(:current_temperature, city)
-      end
+      # pp ActiveRecord::Base&.connection
+      # if ActiveRecord::Base&.connection&.tables&.include?("cities")
+      #
+      #   scheduler = Rufus::Scheduler.new
+      #   city = City.first
+      #
+      #   AccuweatherAPIJob.perform_later(:hourly_temperature, city) unless CityWeather.any?
+      #   AccuweatherAPIJob.perform_later(:current_temperature, city) unless CityCurrentWeather.any?
+      #
+      #   scheduler.every "10m" do
+      #     AccuweatherAPIJob.perform_later(:hourly_temperature, city)
+      #   end
+      #
+      #   scheduler.every "1h" do
+      #     AccuweatherAPIJob.perform_later(:current_temperature, city)
+      #   end
+      # end
     end
   end
 end
