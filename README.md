@@ -36,8 +36,7 @@ APIKEY_ACCUWEATHER=''
 
 ```shell
 bundle
-rails db:create db:schema:load
-rails db:seed
+rails db:reset db:create db:schema:load db:seed
+RAILS_ENV=development bin/delayed_job start &
 rails s
-RAILS_ENV=development bin/delayed_job start
 ```

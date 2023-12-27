@@ -8,4 +8,4 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-City.create(name: "Moscow", location_key: "294021") if City.empty?
+City.create(name: "Moscow", location: "294021") unless City.any?
