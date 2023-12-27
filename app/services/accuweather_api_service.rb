@@ -34,6 +34,7 @@ class AccuweatherAPIService
     end
   end
 
+  ### internal use only
   def self.prepare_weather(city, data)
     {
       city_id: city.id,
