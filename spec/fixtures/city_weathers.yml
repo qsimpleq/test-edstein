@@ -1,0 +1,96 @@
+w1:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 08:58:00 +0000
+  temperature: -2.2
+w2:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 08:07:00 +0000
+  temperature: -2.2
+w3:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 06:07:00 +0000
+  temperature: -2.2
+w4:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 07:03:00 +0000
+  temperature: -2.2
+w5:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 04:58:00 +0000
+  temperature: -2.2
+w6:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 03:58:00 +0000
+  temperature: -2.2
+w7:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 02:57:00 +0000
+  temperature: -2.2
+w8:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 01:58:00 +0000
+  temperature: -2.2
+w9:
+  city: moscow
+  timestamp: Wed, 27 Dec 2023 01:03:00 +0000
+  temperature: -2.2
+w10:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 23:57:00 +0000
+  temperature: -2.2
+w11:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 22:58:00 +0000
+  temperature: -2.2
+w12:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 21:57:00 +0000
+  temperature: -2.2
+w13:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 20:58:00 +0000
+  temperature: -2.2
+w14:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 19:57:00 +0000
+  temperature: -2.8
+w15:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 18:57:00 +0000
+  temperature: -2.8
+w16:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 17:58:00 +0000
+  temperature: -2.8
+w17:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 16:57:00 +0000
+  temperature: -2.2
+w18:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 15:57:00 +0000
+  temperature: -2.2
+w19:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 14:57:00 +0000
+  temperature: -1.1
+w20:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 13:57:00 +0000
+  temperature: -1.1
+w21:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 12:58:00 +0000
+  temperature: -1.1
+w22:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 11:58:00 +0000
+  temperature: 0.0
+w23:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 10:57:00 +0000
+  temperature: 0.0
+w24:
+  city: moscow
+  timestamp: Tue, 26 Dec 2023 09:57:00 +0000
+  temperature: 1.1

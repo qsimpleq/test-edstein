@@ -28,4 +28,17 @@ describe AccuweatherAPIService, vcr: true do
       end
     end
   end
+
+  describe ".hourly_temperature" do
+    it "retrieves the last 24 hours forecasts for a given city" do
+      VCR.use_cassette("city_weather") do
+        CityWeather.delete_all
+
+        forecasts = service.hourly_temperature(city)
+
+        expect(forecasts).to be_a(Array)
+        expect(forecasts.size).to be 24
+      end
+    end
+  end
 end

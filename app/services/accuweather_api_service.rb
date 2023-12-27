@@ -22,16 +22,23 @@ class AccuweatherAPIService
     weathers = parsed_data.map { prepare_weather(city, _1) }
     stats = prepare_weather_stats(city, parsed_data)
 
+    result = []
     ActiveRecord::Base.transaction do
       stat = city.city_weather_stat || CityWeatherStat.new(stats)
       stat.update(stats)
 
       weathers.reverse_each do |w|
-        next if CityWeather.find_by(city_id: w[:city_id], timestamp: w[:timestamp])
+        fw = CityWeather.find_by(city_id: w[:city_id], timestamp: w[:timestamp])
+        if fw
+          result << fw
+          next
+        end
 
-        CityWeather.create(w)
+        result << CityWeather.create(w)
       end
     end
+
+    result
   end
 
   ### internal use only
