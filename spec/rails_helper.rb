@@ -7,12 +7,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "vcr"
 
-VCR.configure do |config|
-  config.cassette_library_dir = "spec/vcr_cassettes"
-  config.hook_into :faraday
-  config.configure_rspec_metadata!
-end
-
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -38,7 +32,26 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/vcr_cassettes"
+  config.hook_into :faraday
+  # config.hook_into :webmock
+  config.configure_rspec_metadata!
+  config.allow_http_connections_when_no_cassette = false # Запрещаем HTTP-соединения без кассеты.
+end
+
 RSpec.configure do |config|
+  config.around(:each, vcr: true) do |example|
+    name = example
+           .metadata[:full_description]
+           .split(/\s+/, 2)
+           .join("/")
+           .underscore
+           .tr(" ", "_")
+           .gsub(%r{[^\w/]+}, "_")
+    VCR.use_cassette(name) { example.call }
+  end
+
   config.include RSpec::Rails::RequestExampleGroup, type: :request, file_path: %r{spec/api}
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -50,6 +63,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  config.global_fixtures = :all
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
