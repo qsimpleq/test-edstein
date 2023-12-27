@@ -5,8 +5,8 @@ describe HealthAPI, type: :request do
     it "returns OK status" do
       get "/health"
 
-      assert response.ok?
-      assert_equal({ "status" => "OK" }, JSON.parse(response.body))
+      expect(response).to have_http_status(:success)
+      expect(response.body).eql?({ "status" => "OK" })
     end
   end
 end
