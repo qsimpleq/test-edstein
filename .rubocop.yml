@@ -24,5 +24,7 @@ Metrics/MethodLength:
   Exclude:
     - "config/**/*"
     - "db/**/*"
+RSpec/ExampleLength:
+  Max: 10
 RSpec/MultipleExpectations:
   Enabled: false

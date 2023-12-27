@@ -38,6 +38,8 @@ VCR.configure do |config|
   # config.hook_into :webmock
   config.configure_rspec_metadata!
   config.allow_http_connections_when_no_cassette = false # Запрещаем HTTP-соединения без кассеты.
+  config.filter_sensitive_data("<APIKEY_ACCUWEATHER>") { ENV["APIKEY_ACCUWEATHER"] }
+  config.filter_sensitive_data("192.168.0.25") { ENV["MY_IP_ADDRESS"] }
 end
 
 RSpec.configure do |config|
